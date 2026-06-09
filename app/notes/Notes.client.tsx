@@ -11,6 +11,7 @@ import { fetchNotes } from "@/lib/api";
 import Pagination from "@/components/Pagination/Pagination";
 import SearchBox from "@/components/SearchBox/SearchBox";
 import NoteList from "@/components/NoteList/NoteList";
+import css from "./NotesClient.module.css";
 
 const NotesClient = () => {
   const [query, setQuery] = useState("");
@@ -45,7 +46,9 @@ const NotesClient = () => {
               onPageChange={setCurrentPage}
             />
           )}
-          <button onClick={openModal}>Create note +</button>
+          <button className={css.button} onClick={openModal}>
+            Create note +
+          </button>
           {isModalOpen && (
             <Modal onClose={closeModal}>
               <NoteForm onClose={closeModal} />
