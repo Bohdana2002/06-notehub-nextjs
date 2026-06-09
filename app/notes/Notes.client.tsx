@@ -1,19 +1,18 @@
+"use client";
+
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import css from "./App.module.css";
 import { useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import Modal from "@/components/Modal/Modal";
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 import Loader from "@/components/Loader/Loader";
 import NoteForm from "@/components/NoteForm/NoteForm";
-import NoteList from "@/components/NoteList/NoteList";
 import { fetchNotes } from "@/lib/api";
 import Pagination from "@/components/Pagination/Pagination";
 import SearchBox from "@/components/SearchBox/SearchBox";
-import { QueryClient } from "@tanstack/react-query";
-// import NotesDetailsClient from '@Notes.client'
+import NoteList from "@/components/NoteList/NoteList";
 
-const App = () => {
+const NotesClient = () => {
   const [query, setQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,6 +21,7 @@ const App = () => {
     queryFn: () => fetchNotes(query, currentPage, 12),
     placeholderData: keepPreviousData,
   });
+
   const totalPages = data?.totalPages ?? 0;
 
   const notes = data?.notes ?? [];
@@ -35,8 +35,8 @@ const App = () => {
 
   return (
     <>
-      <div className={css.app}>
-        <header className={css.toolbar}>
+      <div>
+        <header>
           <SearchBox searchNote={debouncedSearch} />
           {totalPages > 1 && (
             <Pagination
@@ -45,9 +45,7 @@ const App = () => {
               onPageChange={setCurrentPage}
             />
           )}
-          <button className={css.button} onClick={openModal}>
-            Create note +
-          </button>
+          <button onClick={openModal}>Create note +</button>
           {isModalOpen && (
             <Modal onClose={closeModal}>
               <NoteForm onClose={closeModal} />
@@ -62,4 +60,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default NotesClient;

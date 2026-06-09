@@ -1,3 +1,4 @@
+'use client'
 import { Formik, Form, Field, type FormikHelpers, ErrorMessage } from "formik";
 import css from "./NoteForm.module.css";
 import { useId } from "react";
@@ -105,4 +106,4 @@ const NoteForm = ({ onClose }: NoteFormProps) => {
 };
 export default NoteForm;
 
-//form of creating the note
+
